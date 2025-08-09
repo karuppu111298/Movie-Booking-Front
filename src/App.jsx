@@ -95,6 +95,7 @@ function App() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="users" element={<UserList />} />
           <Route path="user_add" element={<AddEditUser />} />
+          <Route path="user_edit/:id" element={<AddEditUser />} />
         </Route>
 
         <Route path="/*" element={ isAuthenticated && userRole === "admin" ? <Navigate to="/admin/dashboard" /> :  <UserLayout />}>

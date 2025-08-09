@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Input from '../../components/back/input';
@@ -10,13 +10,20 @@ function AddEditUser() {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        password:12345,
-        role:'admin',
+        password: 12345,
+        role: 'admin',
         country: '',
         bio: '',
         gender: '',
         agree: false
     });
+
+     //edit code
+    const { id } = useParams();
+    const isEditMode = !!id;
+    //
+
+
 
     const navigate = useNavigate();
 
@@ -53,11 +60,16 @@ function AddEditUser() {
         }
         setLoading(true);
         try {
-            const res = await Api.register(formData);
+            let res;
+            if (isEditMode) {
+               res = await Api.updateUser(id, formData);
+            } else {
+                res = await Api.register(formData);
+            }
             console.log(res)
             if (res.data.user.success === true) {
                 toast.success(res.data.user.message);
-                 navigate('/admin/users');
+                navigate('/admin/users');
             } else {
                 toast.info(res.data.user.message);
             }
@@ -75,6 +87,34 @@ function AddEditUser() {
         { label: 'Female', value: 2 },
         { label: 'Other', value: 3 }
     ];
+
+
+    //edit code
+
+    useEffect(() => {
+        if (isEditMode) {
+            const fetchUser = async () => {
+                try {
+                    const res = await Api.getUserById({id});
+                    const user = res.data.user.user_rec;
+                    console.log('user',user)
+                    setFormData({
+                        name: user.name || '',
+                        email: user.email || '',
+                        password: '', // leave empty or hidden in UI
+                        role: user.role || 'admin',
+                        country: user.country || '',
+                        bio: user.bio || '',
+                        gender: user.gender || '',
+                        agree: true
+                    });
+                } catch (err) {
+                    toast.error("Failed to load user data");
+                }
+            };
+            fetchUser();
+        }
+    }, [id]);
 
     return (
         <div className="min-h-screen bg-white p-8">

@@ -1,61 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-
-const sampleUsers = [
-  {
-    firstName: "Bella",
-    lastName: "Chloe",
-    position: "System Developer",
-    startDate: "2018/03/12",
-    salary: "$654,765",
-    email: "b.Chloe@datatables.net",
-  },
-  {
-    firstName: "Donna",
-    lastName: "Bond",
-    position: "Account Manager",
-    startDate: "2012/02/21",
-    salary: "$543,654",
-    email: "d.bond@datatables.net",
-  },
-  {
-    firstName: "Garrett",
-    lastName: "Winters",
-    position: "Marketing Designer",
-    startDate: "2019/04/01",
-    salary: "$230,000",
-    email: "g.winters@datatables.net",
-  },
-  {
-    firstName: "Ashton",
-    lastName: "Cox",
-    position: "UX Designer",
-    startDate: "2021/07/22",
-    salary: "$120,000",
-    email: "a.cox@datatables.net",
-  },
-  {
-    firstName: "Cedric",
-    lastName: "Kelly",
-    position: "DevOps Engineer",
-    startDate: "2020/01/10",
-    salary: "$150,000",
-    email: "c.kelly@datatables.net",
-  },
-  {
-    firstName: "Airi",
-    lastName: "Satou",
-    position: "Technical Lead",
-    startDate: "2015/11/05",
-    salary: "$250,000",
-    email: "a.satou@datatables.net",
-  },
-  // Add more if needed to test multiple pages
-];
+import Api from "../../services/back/api_service";
 
 export default function UserTable() {
   const [pageSize, setPageSize] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
+  const [sampleUsers,setSampleUsers] = useState([]);
 
   const totalUsers = sampleUsers.length;
   const totalPages = Math.ceil(totalUsers / pageSize);
@@ -75,9 +25,21 @@ export default function UserTable() {
     setCurrentPage(1); // Reset to first page when page size changes
   };
 
+ useEffect(() => {
+  const fetchUsers = async () => {
+    try {
+      const res = await Api.getUsers();
+    setSampleUsers(res.data?.users || []);
+    } catch (err) {
+      console.error("Error fetching users:", err);
+    }
+  };
+
+  fetchUsers();
+}, []);
+
   return (
     <div className="p-6 bg-white  min-h-screen">
-      {/* Header */}
       <div className="flex flex-wrap items-center justify-between mb-6 gap-4">
         <div className="flex items-center space-x-2 text-gray-800">
           <h2 className="text-2xl font-semibold">Tables</h2>
@@ -113,17 +75,13 @@ export default function UserTable() {
         </div>
       </div>
 
-      {/* Table */}
       <div className="overflow-x-auto rounded-lg border border-gray-300 bg-white shadow">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-100">
             <tr>
               {[
-                "First Name",
-                "Last Name",
+                "Name",
                 "Position",
-                "Start Date",
-                "Salary",
                 "E-mail",
                 "Actions",
               ].map((header) => (
@@ -140,19 +98,10 @@ export default function UserTable() {
             {paginatedUsers.map((user, index) => (
               <tr key={index} className="even:bg-gray-50 hover:bg-gray-100">
                 <td className="px-4 py-2 border-b border-gray-200">
-                  {user.firstName}
+                  {user.name}
                 </td>
                 <td className="px-4 py-2 border-b border-gray-200">
-                  {user.lastName}
-                </td>
-                <td className="px-4 py-2 border-b border-gray-200">
-                  {user.position}
-                </td>
-                <td className="px-4 py-2 border-b border-gray-200">
-                  {user.startDate}
-                </td>
-                <td className="px-4 py-2 border-b border-gray-200">
-                  {user.salary}
+                  {user.role}
                 </td>
                 <td className="px-4 py-2 border-b border-gray-200 text-blue-600">
                   <a href={`mailto:${user.email}`} className="hover:underline">
@@ -160,12 +109,14 @@ export default function UserTable() {
                   </a>
                 </td>
                 <td className="px-4 py-2 border-b border-gray-200 text-center space-x-2">
+                  <Link to={`/admin/user_edit/${user._id}`}>
                   <button
                     className="bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700"
                     title="Edit"
                   >
                     ✎
                   </button>
+                  </Link>
                   <button
                     className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700"
                     title="Delete"
@@ -190,9 +141,7 @@ export default function UserTable() {
             of <span className="font-medium">{totalUsers}</span> results
           </div>
 
-          {/* Right: Page size + Pagination */}
           <div className="flex items-center space-x-4">
-            {/* Page Size Dropdown */}
             <div className="flex items-center space-x-2">
               <label htmlFor="pageSize" className="text-sm text-gray-600">
                 Show:
@@ -211,7 +160,6 @@ export default function UserTable() {
               </select>
             </div>
 
-            {/* Pagination Arrows */}
             <div className="flex items-center space-x-2">
               <button
                 onClick={handlePrevious}

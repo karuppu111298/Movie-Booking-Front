@@ -8,12 +8,20 @@ class Auth {
   register(data) {
     return http.post("/user_create", data);
   }
-  verifyAccessToken(data){
+  verifyAccessToken(data) {
     return http.post("/verify_access_token", data);
   }
-   test(data){
-    return http.post("/employee_assign_list", data);
+  getUsers(data) {
+    return http.post("/users_list", data);
   }
+  getUserById(data) {
+    return http.post("/user_edit", data);
+  }
+  updateUser(id, data) {
+    return http.post(`/user_update/${id}`, data);
+  }
+
+
 
 }
 
