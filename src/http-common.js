@@ -1,8 +1,17 @@
 // client/src/services/http-common.js
 import axios from "axios";
 //"proxy": "http://localhost:5000",d
+
+
+// Local development
+// const REACT_APP_API_URL="http://localhost:5000/api"
+
+//Production
+const REACT_APP_API_URL="https://movie-booking-back-tywe.onrender.com/api"
+
+
 const api = axios.create({
-  baseURL: "http://localhost:5000/api/", // No trailing slash
+  baseURL: REACT_APP_API_URL,
   headers: {
     "Content-Type": "application/json"
   }
