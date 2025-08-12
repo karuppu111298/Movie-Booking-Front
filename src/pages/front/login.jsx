@@ -67,7 +67,7 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-indigo-100 to-blue-200 flex justify-center items-center px-4">
+    <div className="min-h-screen bg-gradient-to-r from-indigo-100 to-yellow-200 flex justify-center items-center px-4">
       <div className="bg-white p-8 rounded-xl shadow-lg max-w-sm w-full">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
           🔐 Login to Your Account

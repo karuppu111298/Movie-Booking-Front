@@ -37,7 +37,7 @@ const MovieBookingComponent = () => {
         seats: selectedSeats, // full seat objects now
         token: accessToken,
       });
-
+      navigate("/my_bookings"); 
     } catch (err) {
       console.error("Booking error:", err);
       alert("Booking failed. Try again.");

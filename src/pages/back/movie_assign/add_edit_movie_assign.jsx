@@ -74,7 +74,7 @@ function MovieAssign() {
       const response = await Api.createAssignMovie(formData); // POST request
       if (response.data.success) {
         toast.success("Movie assigned successfully!");
-        navigate("/assignments"); // redirect to assignment list page
+        navigate("/admin/movie_assign_list"); // redirect to assignment list page
       } else {
         toast.error(response.data.message || "Failed to assign movie");
       }

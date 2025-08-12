@@ -53,10 +53,10 @@ function AddEditScreen() {
                 response = await axios.post(`${config.REACT_APP_API_URL}/screen_create`, formData);
             }
 
-            if (response.data.success) {
+            if (response.data.screen.success) {
                 toast.success(isEditMode ? 'Screen updated successfully!' : 'Screen added successfully!');
                 setFormData({ screen_name: '', seat_qty: '' });
-                navigate('/screens');
+                navigate('/admin/screens');
             } else {
                 toast.error('Failed to save screen');
             }

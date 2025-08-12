@@ -109,14 +109,14 @@ export default function UserList() {
                   </a>
                 </td>
                 <td className="px-4 py-2 border-b border-gray-200 text-center space-x-2">
-                  <Link to={`/admin/user_edit/${user._id}`}>
+                  {/* <Link to={`/admin/user_edit/${user._id}`}>
                   <button
                     className="bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700"
                     title="Edit"
                   >
                     ✎
                   </button>
-                  </Link>
+                  </Link> */}
                   {/* <button
                     className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700"
                     title="Delete"

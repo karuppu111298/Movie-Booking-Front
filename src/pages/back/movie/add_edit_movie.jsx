@@ -79,11 +79,11 @@ function AddEditMovie() {
                 });
             }
 
-            if (response.data.success) {
+            if (response.data.result.success) {
                 toast.success(isEditMode ? 'Movie updated successfully!' : 'Movie added successfully!');
                 setFormData({ movieName: '', movieImage: null });
                 setPreviewImage(null);
-                navigate('/movies'); // Navigate to the movie list page
+                navigate('/admin/movies'); // Navigate to the movie list page
             } else {
                 toast.error('Failed to save movie');
             }

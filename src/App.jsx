@@ -101,8 +101,14 @@ function App() {
     if (userRole !== "admin") return <Navigate to="/" replace />;
     return children;
   };
- 
+  
+  const FrontProtectedRoute = ({ children }) => {
+    if (!isAuthenticated) return <Navigate to="/login" replace />;
+    if (userRole !== "user") return <Navigate to="/" replace />;
+    return children;
+  };
 
+  
   return (
     <div>
 
@@ -134,7 +140,7 @@ function App() {
            <Route index  element={<Home />} />
             <Route path="movies" element={<Movie />} />
              <Route path="book/:movieId" element={<MovieBookingComponent />} />
-             <Route path="my_bookings" element={<MyBookingsComponent />} />
+             <Route path="my_bookings" element={ <FrontProtectedRoute> <MyBookingsComponent /> </FrontProtectedRoute>} />
            <Route path="login" element={ isAuthenticated ? <Navigate to="/" /> : <UserLogin />} />
            <Route path="register"  element={<UserRegister />} />
         </Route>

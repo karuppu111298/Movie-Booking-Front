@@ -119,10 +119,11 @@ function Login() {
 
 
           <p className="text-center text-sm text-gray-500 mt-2">
-            Don’t have an account?{' '}
+            {/* Don’t have an account?{' '}
             <Link to="/admin/register" className="text-blue-600 hover:underline">
               Sign up
-            </Link>
+            </Link> */}
+            Contact Admin for access
           </p>
         </form>
       </div>
