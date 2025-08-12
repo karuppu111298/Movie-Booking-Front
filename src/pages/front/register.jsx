@@ -79,7 +79,7 @@ function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-blue-200 flex justify-center items-center px-4">
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-yellow-200 flex justify-center items-center px-4">
       <div className="bg-white p-8 rounded-xl shadow-lg max-w-sm w-full">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">📝 Create an Account</h2>
 
@@ -153,7 +153,7 @@ function Register() {
 
           <p className="text-center text-sm text-gray-500 mt-2">
             Already have an account?{' '}
-            <Link to="/admin/login" className="text-blue-600 hover:underline">Login
+            <Link to="/login" className="text-blue-600 hover:underline">Login
             </Link>
           </p>
         </form>
