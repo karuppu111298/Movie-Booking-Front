@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Input from '../../components/back/input';
-import Api from '../../services/back/api_service';
+import Input from '../../../components/back/input';
+import Api from '../../../services/back/api_service';
 
 
 function AddEditUser() {
@@ -120,7 +120,9 @@ function AddEditUser() {
         <div className="min-h-screen bg-white p-8">
             <div className="flex justify-between items-center mb-6">
                 <div>
-                    <h1 className="text-3xl font-semibold text-gray-800">Add User</h1>
+                    <h1 className="text-3xl font-semibold text-gray-800">
+                           {isEditMode ? 'Edit User' : 'Add User'}
+                    </h1>
                     <p className="text-sm text-gray-500">Fill in the user information below.</p>
                 </div>
                 <Link to="/admin/users">

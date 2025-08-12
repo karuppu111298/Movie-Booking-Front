@@ -1,10 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logout } from '../../store/auth_slice';
 
 const Header = () => {
-
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -29,21 +28,19 @@ const Header = () => {
 
       {/* Center: Navigation Links */}
       <nav className="space-x-6 text-gray-700 text-sm font-medium hidden md:flex">
-        <a href="/" className="hover:text-blue-600 transition">Home</a>
-        <a href="/movies" className="hover:text-blue-600 transition">Movies</a>
-        <a href="/series" className="hover:text-blue-600 transition">Series</a>
-        <a href="/about" className="hover:text-blue-600 transition">About</a>
+        <Link to="/" className="hover:text-blue-600 transition">Home</Link>
+        <Link to="/movies" className="hover:text-blue-600 transition">Movies</Link>
         {!isAuthenticated && (
-          <Link to="login" className="hover:text-blue-600 transition">Login</Link>
+          <Link to="/login" className="hover:text-blue-600 transition">Login</Link>
         )}
         {isAuthenticated && user.role === 'user' && (
           <>
-            <Link to="/my-bookings">My Bookings</Link>
+            <Link to="/my_bookings" className="hover:text-blue-600 transition">My Bookings</Link>
           </>
         )}
-
       </nav>
 
+      {/* User Menu */}
       <div className="relative group">
         {isAuthenticated && user.role === 'user' && (
           <>
@@ -58,12 +55,16 @@ const Header = () => {
                 <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Edit Profile</li>
                 <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Settings</li>
                 <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Change Password</li>
-                <li className="px-4 py-2 hover:bg-red-100 text-red-500 cursor-pointer" onClick={handleLogout}>Logout</li>
+                <li
+                  className="px-4 py-2 hover:bg-red-100 text-red-500 cursor-pointer"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </li>
               </ul>
             </div>
           </>
         )}
-
       </div>
     </header>
   );

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiEye, FiEyeOff, FiMail, FiLock, FiUser } from 'react-icons/fi';
-import Api from '../../services/back/api_service';
+import Api from '../../../services/back/api_service';
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -64,7 +64,7 @@ function Register() {
         })
         .then((response) => {
           localStorage.setItem("user", JSON.stringify(response.data));
-          navigate("/");
+          navigate("/admin/login");
         })
         .catch((e) => {
           console.log(e);

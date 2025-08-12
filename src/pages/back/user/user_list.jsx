@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import Api from "../../services/back/api_service";
+import Api from "../../../services/back/api_service";
 
-export default function UserTable() {
+export default function UserList() {
   const [pageSize, setPageSize] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const [sampleUsers,setSampleUsers] = useState([]);
@@ -117,12 +117,12 @@ export default function UserTable() {
                     ✎
                   </button>
                   </Link>
-                  <button
+                  {/* <button
                     className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700"
                     title="Delete"
                   >
                     ✖
-                  </button>
+                  </button> */}
                 </td>
               </tr>
             ))}

@@ -1,30 +1,37 @@
 // client/src/services/http-common.js
 import axios from "axios";
+import config from "./config";
 //"proxy": "http://localhost:5000",d
 
 
-// Local development
-// const REACT_APP_API_URL="http://localhost:5000/api"
-
-//Production
-const REACT_APP_API_URL="https://movie-booking-back-tywe.onrender.com/api"
-
 
 const api = axios.create({
-  baseURL: REACT_APP_API_URL,
+  baseURL: config.REACT_APP_API_URL,
   headers: {
     "Content-Type": "application/json"
   }
 });
 
-// api.interceptors.request.use((config) => {
-//   const user = localStorage.getItem("user");
-//   const parsed = JSON.parse(user);
-//   const accessToken = parsed.access_token;
-//   if (accessToken) {
-//     config.headers.Authorization = `Bearer ${accessToken}`;
-//   }
-//   return config;
-// });
+api.interceptors.request.use(
+  (config) => {
+    try {
+      const user = localStorage.getItem("user");
+      if (user) {
+        const parsed = JSON.parse(user);
+        const token = parsed?.access_token;
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+      }
+    } catch (err) {
+      console.error("Auth interceptor error:", err);
+      // Do nothing if user not valid
+    }
+
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 
 export default api;

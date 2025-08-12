@@ -11,7 +11,7 @@ import Api from '../../services/back/api_service';
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({ user_name: "", password: "" });
+  const [formData, setFormData] = useState({ user_name: "", password: "", role:'user' });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -120,7 +120,7 @@ function Login() {
 
           <p className="text-center text-sm text-gray-500 mt-2">
             Don’t have an account?{' '}
-            <Link to="/admin/register" className="text-blue-600 hover:underline">
+            <Link to="/register" className="text-blue-600 hover:underline">
               Sign up
             </Link>
           </p>

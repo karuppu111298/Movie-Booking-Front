@@ -11,28 +11,31 @@ const Sidebar = () => {
 
       {/* Scrollable nav area */}
       <nav className="flex-1 overflow-y-auto p-4 space-y-2 custom-scrollbar">
-        <div className="text-xs font-semibold text-gray-500 uppercase">User Management</div>
+         <div className="text-xs font-semibold text-gray-500 uppercase">Index</div>
+         <Link
+         to="/admin/dashboard"
+         className="block px-4 py-2 rounded hover:bg-blue-100 text-blue-600 font-medium">Dashboard
+        </Link>
+        <div className="text-xs font-semibold text-gray-500 uppercase">Movie Management</div>
+         <Link
+         to="/admin/movies"
+         className="block px-4 py-2 rounded hover:bg-blue-100 text-blue-600 font-medium">Movie List
+        </Link>
+        <Link
+         to="/admin/screens"
+         className="block px-4 py-2 rounded hover:bg-blue-100 text-blue-600 font-medium">Screen List
+        </Link>
+         <Link
+         to="/admin/movie_assign_list"
+         className="block px-4 py-2 rounded hover:bg-blue-100 text-blue-600 font-medium">Movie Assign List
+        </Link>
+        
+         <div className="text-xs font-semibold text-gray-500 uppercase">User Management</div>
          <Link
          to="/admin/users"
          className="block px-4 py-2 rounded hover:bg-blue-100 text-blue-600 font-medium">User List
         </Link>
 
-        <div className="text-xs font-semibold text-gray-500 uppercase mt-4">HTML</div>
-        <a href="#" className="block px-4 py-2 rounded hover:bg-gray-100">Icons</a>
-        <a href="#" className="block px-4 py-2 rounded hover:bg-gray-100">Icons</a>
-
-        <div className="text-xs font-semibold text-gray-500 uppercase mt-4">CSS</div>
-        <a href="#" className="block px-4 py-2 rounded hover:bg-gray-100">Icons</a>
-        <a href="#" className="block px-4 py-2 rounded hover:bg-gray-100">Icons</a>
-
-        <div className="text-xs font-semibold text-gray-500 uppercase mt-4">JavaScript</div>
-        <a href="#" className="block px-4 py-2 rounded hover:bg-gray-100">Icons</a>
-        <a href="#" className="block px-4 py-2 rounded hover:bg-gray-100">Icons</a>
-
-        <div className="text-xs font-semibold text-gray-500 uppercase mt-4">PHP</div>
-        <a href="#" className="block px-4 py-2 rounded hover:bg-gray-100">Icons</a>
-        <a href="#" className="block px-4 py-2 rounded hover:bg-gray-100">Icons</a>
-        <a href="#" className="block px-4 py-2 rounded hover:bg-gray-100">Icons</a>
       </nav>
     </aside>
   );

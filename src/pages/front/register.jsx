@@ -6,89 +6,91 @@ import Api from '../../services/back/api_service';
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-   const [formData, setFormData] = useState({
-      name:"",
-      email: "",
-      password: "",
-      confirm_password: ""
-    });
-    const [errors, setErrors] = useState({});
-    const navigate = useNavigate();
-  
-    const validateForm = () => {
-      let newErrors = {};
-  
-      if (!formData.name) {
-        newErrors.name = "Field is Required!";
-      } 
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirm_password: "",
+  });
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
-      if (!formData.email) {
-        newErrors.email = "Field is Required!";
-      } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-        newErrors.email = "Invalid email format!";
-      }
+  const validateForm = () => {
+    let newErrors = {};
 
-      if (!formData.password) {
-        newErrors.password = "Field is Required!";
-      } else if (formData.password.length < 5) {
-        newErrors.password = "Password must be at least 5 characters long!";
-        alert('Password must be at least 5 characters long!'); 
-      }
-  
-      if (!formData.confirm_password) {
-        newErrors.confirm_password = "Confirm Password is Required!";
-      } else if (formData.password !== formData.confirm_password) {
-        newErrors.confirm_password = "Passwords do not match!";
-        alert('Passwords do not match!'); 
-      }
-  
-      setErrors(newErrors);
-      return Object.keys(newErrors).length;
-    };
-  
-    const handleChange = (e) => {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      if (validateForm() !=0) {
-        alert('Please Fill Required Fields'); 
-        return;
-      }
-  
-      try {
-        Api.register({ 
-          email: formData.email, 
-          password: formData.password 
-        })
+    if (!formData.name) {
+      newErrors.name = "Field is Required!";
+    }
+
+    if (!formData.email) {
+      newErrors.email = "Field is Required!";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Invalid email format!";
+    }
+
+    if (!formData.password) {
+      newErrors.password = "Field is Required!";
+    } else if (formData.password.length < 5) {
+      newErrors.password = "Password must be at least 5 characters long!";
+      alert('Password must be at least 5 characters long!');
+    }
+
+    if (!formData.confirm_password) {
+      newErrors.confirm_password = "Confirm Password is Required!";
+    } else if (formData.password !== formData.confirm_password) {
+      newErrors.confirm_password = "Passwords do not match!";
+      alert('Passwords do not match!');
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length;
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (validateForm() != 0) {
+      alert('Please Fill Required Fields');
+      return;
+    }
+
+    try {
+      Api.register({
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        role: "user"
+      })
         .then((response) => {
           localStorage.setItem("user", JSON.stringify(response.data));
-          navigate("/");
+          navigate("/login");
         })
         .catch((e) => {
           console.log(e);
           alert("Registration failed");
         });
-  
-      } catch (error) {
-        alert("Registration failed");
-      }
-    };
+
+    } catch (error) {
+      alert("Registration failed");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-purple-100 to-blue-200 flex justify-center items-center px-4">
       <div className="bg-white p-8 rounded-xl shadow-lg max-w-sm w-full">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">📝 Create an Account</h2>
-        
-       <form onSubmit={handleSubmit} className="space-y-5">
+
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div className="relative">
             <FiUser className="absolute top-3.5 left-3 text-gray-400" />
             <input
               type="text"
               placeholder="Full Name"
               className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-               name="name"
+              name="name"
               value={formData.name}
               onChange={handleChange}
             />
@@ -104,7 +106,7 @@ function Register() {
               value={formData.email}
               onChange={handleChange}
             />
-              <span className="absolute top-3.1 right-1 text-red-500">*</span>
+            <span className="absolute top-3.1 right-1 text-red-500">*</span>
           </div>
           <div className="relative">
             <FiLock className="absolute top-3.5 left-3 text-gray-400" />
@@ -116,7 +118,7 @@ function Register() {
               value={formData.password}
               onChange={handleChange}
             />
-              <span className="absolute top-3.1 right-1 text-red-500">*</span>
+            <span className="absolute top-3.1 right-1 text-red-500">*</span>
             <div
               className="absolute top-3.5 right-3 cursor-pointer text-gray-500"
               onClick={() => setShowPassword(!showPassword)}
@@ -134,7 +136,7 @@ function Register() {
               value={formData.confirm_password}
               onChange={handleChange}
             />
-              <span className="absolute top-3.1 right-1 text-red-500">*</span>
+            <span className="absolute top-3.1 right-1 text-red-500">*</span>
             <div
               className="absolute top-3.5 right-3 cursor-pointer text-gray-500"
               onClick={() => setShowConfirm(!showConfirm)}
@@ -151,8 +153,8 @@ function Register() {
 
           <p className="text-center text-sm text-gray-500 mt-2">
             Already have an account?{' '}
-          <Link to="/admin/login"  className="text-blue-600 hover:underline">Login
-                      </Link>
+            <Link to="/admin/login" className="text-blue-600 hover:underline">Login
+            </Link>
           </p>
         </form>
       </div>

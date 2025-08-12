@@ -5,13 +5,13 @@ import { FiEye, FiEyeOff, FiMail, FiLock } from 'react-icons/fi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import Input from '../../components/back/input';
-import Api from '../../services/back/api_service';
+import Input from '../../../components/back/input';
+import Api from '../../../services/back/api_service';
 
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({ user_name: "", password: "" });
+  const [formData, setFormData] = useState({ user_name: "", password: "", role:'admin'});
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
