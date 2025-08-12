@@ -4,6 +4,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Api from '../../../services/back/api_service';
+import config from "../../../config";
 
 function AddEditScreen() {
     const { id } = useParams();
@@ -47,9 +48,9 @@ function AddEditScreen() {
         try {
             let response;
             if (isEditMode) {
-                response = await axios.post(`http://localhost:5000/api/screen_update/${id}`, formData);
+                response = await axios.post(`${config.REACT_APP_API_URL}/screen_update/${id}`, formData);
             } else {
-                response = await axios.post('http://localhost:5000/api/screen_create', formData);
+                response = await axios.post(`${config.REACT_APP_API_URL}/screen_create`, formData);
             }
 
             if (response.data.success) {

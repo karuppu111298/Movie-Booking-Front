@@ -4,6 +4,7 @@ import {Link, useParams, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Api from '../../../services/back/api_service';
+import config from "../../../config";
 
 function AddEditMovie() {
     const { id } = useParams(); // Get movie ID from URL
@@ -64,14 +65,14 @@ function AddEditMovie() {
             let response;
             if (isEditMode) {
                 // Update movie API call (PUT request)
-                response = await axios.post(`http://localhost:5000/api/movie_update/${id}`, formDataToSend, {
+                response = await axios.post(`${config.REACT_APP_API_URL}/movie_update/${id}`, formDataToSend, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
                 });
             } else {
                 // Create new movie API call (POST request)
-                response = await axios.post('http://localhost:5000/api/movie_create', formDataToSend, {
+                response = await axios.post(`${config.REACT_APP_API_URL}/movie_create`, formDataToSend, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
